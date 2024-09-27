@@ -10,14 +10,13 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            overflow: hidden;
         }
 
         body {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            background-color: #000; /* Black background for better visibility */
             overflow: hidden; /* Prevent scrolling */
         }
 
@@ -28,22 +27,10 @@
             z-index: 999;
         }
 
-        /* Styles for the scanning box */
-        #qr-box {
-            position: absolute;
-            border: 5px solid lime; /* Keep the border for visual aid (optional) */
-            width: 250px; /* Adjust size for more square */
-            height: 250px; /* Adjust size for more square */
-            top: calc(50% - 125px); /* Center vertically */
-            left: calc(50% - 125px); /* Center horizontally */
-            z-index: 1; /* Ensures the box is above the video */
-        }
     </style>
 </head>
 <body>
-    <div id="qr-reader">
-        <!-- Removed the box for scanning to display full video -->
-    </div>
+    <div id="qr-reader" />
 
     <script>
         // Create a new Html5Qrcode instance
@@ -55,15 +42,14 @@
             html5QrcodeScanner.clear();
         }
 
-        // Function to start the QR code scanner
         function startScanner() {
             // Start the scanning process
             html5QrcodeScanner.start(
                 { facingMode: "environment" }, // Use rear camera
                 {
                     fps: 10, // Frames per second
-                    qrbox: 250, // Size of the scanning box, updated to make it more square
-                    aspectRatio: 1 // Set aspect ratio to 1 for a square scanning box
+                    qrbox: {width: 300, height: 500}, // Size of the scanning box, updated to make it more square
+                    aspectRatio: 0.4
                 },
                 onScanSuccess,
                 (errorMessage) => {
