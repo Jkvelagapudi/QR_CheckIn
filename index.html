@@ -15,22 +15,34 @@
 
         body {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden; /* Prevent scrolling */
+            flex-direction: column;
+            height: 100vh;
         }
 
         #qr-reader {
             position: relative;
-            width: 100vw; /* Full width for mobile */
-            height: 100vh; /* Full height for mobile */
+            width: 100vw;
+            height: 50vh; /* Take up half the viewport height */
             z-index: 999;
+        }
+
+        #result {
+            flex: 1; /* Take the remaining space */
+            background-color: white; /* White background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px; /* Some padding for aesthetics */
+            font-size: 24px; /* Larger font size */
+            color: #333; /* Dark text color */
         }
 
     </style>
 </head>
 <body>
-    <div id="qr-reader" />
+    <div id="qr-reader"></div>
+    <div id="result">Scan a QR code to see the result here</div>
 
     <script>
         // Create a new Html5Qrcode instance
@@ -38,7 +50,7 @@
 
         // Function to handle successful QR code scans
         function onScanSuccess(decodedText, decodedResult) {
-            console.log(decodedResult.result.text);
+            document.getElementById('result').innerText = decodedText; // Update the result div
             html5QrcodeScanner.clear();
         }
 
@@ -48,8 +60,8 @@
                 { facingMode: "environment" }, // Use rear camera
                 {
                     fps: 10, // Frames per second
-                    qrbox: {width: 300, height: 500}, // Size of the scanning box, updated to make it more square
-                    aspectRatio: 0.4
+                    qrbox: { width: 300, height: 500 }, // Size of the scanning box
+                    aspectRatio: 1
                 },
                 onScanSuccess,
                 (errorMessage) => {
