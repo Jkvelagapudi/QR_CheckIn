@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QR Code Scanner</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script> <!-- Closing tag corrected -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -28,20 +28,21 @@
             z-index: 999;
         }
 
+        /* Styles for the scanning box */
         #qr-box {
             position: absolute;
-            border: 5px solid lime; /* Green border for the QR box */
-            width: 200px; /* Size of the scanning box */
-            height: 200px; /* Size of the scanning box */
-            top: calc(50% - 100px); /* Center vertically */
-            left: calc(50% - 100px); /* Center horizontally */
+            border: 5px solid lime; /* Keep the border for visual aid (optional) */
+            width: 250px; /* Adjust size for more square */
+            height: 250px; /* Adjust size for more square */
+            top: calc(50% - 125px); /* Center vertically */
+            left: calc(50% - 125px); /* Center horizontally */
             z-index: 1; /* Ensures the box is above the video */
         }
     </style>
 </head>
 <body>
     <div id="qr-reader">
-        <div id="qr-box"></div> <!-- Box to outline QR code area -->
+        <!-- Removed the box for scanning to display full video -->
     </div>
 
     <script>
@@ -61,8 +62,8 @@
                 { facingMode: "environment" }, // Use rear camera
                 {
                     fps: 10, // Frames per second
-                    qrbox: 150, // Size of the scanning box
-                    aspectRatio: 0.2
+                    qrbox: 250, // Size of the scanning box, updated to make it more square
+                    aspectRatio: 1 // Set aspect ratio to 1 for a square scanning box
                 },
                 onScanSuccess,
                 (errorMessage) => {
