@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Scanner</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script> <!-- Closing tag corrected -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000; /* Black background for better visibility */
+            overflow: hidden; /* Prevent scrolling */
+        }
+
+        #qr-reader {
+            position: relative;
+            width: 100vw; /* Full width for mobile */
+            height: 100vh; /* Full height for mobile */
+            z-index: 999;
+        }
+
+        #qr-box {
+            position: absolute;
+            border: 5px solid lime; /* Green border for the QR box */
+            width: 200px; /* Size of the scanning box */
+            height: 200px; /* Size of the scanning box */
+            top: calc(50% - 100px); /* Center vertically */
+            left: calc(50% - 100px); /* Center horizontally */
+            z-index: 1; /* Ensures the box is above the video */
+        }
+    </style>
+</head>
+<body>
+    <div id="qr-reader">
+        <div id="qr-box"></div> <!-- Box to outline QR code area -->
+    </div>
+
+    <script>
+        // Create a new Html5Qrcode instance
+        const html5QrcodeScanner = new Html5Qrcode("qr-reader");
+
+        // Function to handle successful QR code scans
+        function onScanSuccess(decodedText, decodedResult) {
+            console.log(decodedResult.result.text);
+            html5QrcodeScanner.clear();
+        }
+
+        // Function to start the QR code scanner
+        function startScanner() {
+            // Start the scanning process
+            html5QrcodeScanner.start(
+                { facingMode: "environment" }, // Use rear camera
+                {
+                    fps: 10, // Frames per second
+                    qrbox: 250, // Size of the scanning box
+                    aspectRatio: 0.5
+                },
+                onScanSuccess,
+                (errorMessage) => {
+                    // Log scan errors (if any)
+                    console.warn(`QR code scan error: ${errorMessage}`);
+                }
+            ).catch(err => {
+                console.error(`Unable to start scanning: ${err}`);
+            });
+        }
+
+        // Start the scanner when the page loads
+        window.onload = startScanner;
+    </script>
+</body>
+</html>
