@@ -1,3 +1,3 @@
-### QR Code CheckIn scanner for BEST Robotics
+# QR Code CheckIn scanner for BEST Robotics
 
 ## Mobile Only
