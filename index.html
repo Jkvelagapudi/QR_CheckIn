@@ -127,7 +127,7 @@
         function startScanner() {
             html5QrcodeScanner.start(
                 { facingMode: "environment" },
-                { fps: 10, qrbox: { width: 600, height: 600 }, aspectRatio: 1 },
+                { fps: 10 },
                 onScanSuccess,
                 (errorMessage) => {
                     console.warn(`QR code scan error: ${errorMessage}`);
