@@ -88,7 +88,7 @@
     <div id="result">Scan a QR code to see the result here</div>
 
     <div id="modal">
-        <p id="modal-text"></p>
+        <p id="modal-text"> Welcome to the Scanner </p>
         <button id="close-button" onclick="closeModal()">Close</button>
     </div>
 
@@ -100,7 +100,7 @@
             try {
                 const decodedText = atob(encodedText); // Decode Base64
                 const dataArray = decodedText.split(","); // Split by commas to get original array elements
-                return `Name: ${dataArray[1]}, Number of Bands: ${dataArray[2]}`;
+                return `Name: ${dataArray[1]} \n Number of Bands: ${dataArray[2]}`;
             } catch (error) {
                 console.error("Error decoding Base64:", error);
                 return "Invalid QR code";
